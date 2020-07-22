@@ -13,11 +13,12 @@
 </template>
 
 <script>
+
   export default {
     name: "category",
     data() {
       return {
-        isEdit:true
+        isEdit:true,
       }
     },
     methods: {
