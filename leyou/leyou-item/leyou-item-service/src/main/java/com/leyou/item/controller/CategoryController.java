@@ -35,19 +35,18 @@ public class CategoryController {
     public ResponseEntity<List<Category>> queryCategoriesByPid(@RequestParam(value = "pid", defaultValue = "0") Long pid) {
         if (pid == null || pid < 0) {
             //400：参数不合法
-//                return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-//                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            //return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+            //return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
             return ResponseEntity.badRequest().build();
         }
         List<Category> categories = this.categoryService.queryCategoriesByPid(pid);
         if (CollectionUtils.isEmpty(categories)) {
             //404；资源服务器未找到
-//                return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+            //return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 
             return ResponseEntity.notFound().build();
         }
         //200；查询成功
-        System.out.println("000");
         return ResponseEntity.ok(categories);
     }
 }
