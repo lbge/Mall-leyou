@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author Linbo Ge
@@ -19,6 +20,7 @@ public class CategoryService {
 
     /**
      * 根据父节点返回子节点
+     *
      * @param pid
      * @return
      */
@@ -27,5 +29,16 @@ public class CategoryService {
         record.setParentId(pid);
         //根据parentId查询类目
         return this.categoryMapper.select(record);
+    }
+
+    /**
+     * 根据多个分类id查询分类名称
+     * @param ids
+     * @return
+     */
+    public List<String> queryNamesByIds(List<Long> ids) {
+        List<Category> categories = this.categoryMapper.selectByIdList(ids);
+        //将一个集合中的元素处理后放入另一个集合当中
+        return categories.stream().map(category -> category.getName()).collect(Collectors.toList());
     }
 }
