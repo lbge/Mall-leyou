@@ -9,7 +9,6 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.StreamUtils;
 import tk.mybatis.mapper.entity.Example;
 
 import java.util.List;
@@ -84,6 +83,15 @@ public class BrandService {
      */
     public List<Brand> queryBrandByCid(Long cid) {
         return this.brandMapper.selectBrandsByCid(cid);
+    }
+
+    /**
+     * 根据id获取品牌
+     * @param id
+     * @return
+     */
+    public Brand queryBrandById(Long id) {
+        return this.brandMapper.selectByPrimaryKey(id);
     }
 }
 

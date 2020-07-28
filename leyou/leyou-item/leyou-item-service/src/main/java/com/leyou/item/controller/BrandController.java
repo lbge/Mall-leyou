@@ -42,7 +42,7 @@ public class BrandController {
             @RequestParam(value = "desc", required = false) Boolean desc
     ) {
         PageResult<Brand> result = this.brandService.queryBrandsByPage(key, page, rows, sortBy, desc);
-        if (CollectionUtils.isEmpty(result.getItems())){
+        if (CollectionUtils.isEmpty(result.getItems())) {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(result);
@@ -50,29 +50,44 @@ public class BrandController {
 
     /**
      * 新增品牌
+     *
      * @param brand
      * @param cids
      * @return
      */
     @PostMapping
-    public ResponseEntity<Void> saveBrand(Brand brand, @RequestParam("cids")List<Long> cids){
-        this.brandService.saveBrand(brand,cids);
+    public ResponseEntity<Void> saveBrand(Brand brand, @RequestParam("cids") List<Long> cids) {
+        this.brandService.saveBrand(brand, cids);
         //正常返回200，错误返回500
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     /**
      * 根据分类id查询品牌列表
+     *
      * @param cid
      * @return
      */
     @GetMapping("cid/{cid}")
-    public ResponseEntity<List<Brand>> queryBrandByCid(@PathVariable("cid") Long cid){
-       List<Brand> brands = this.brandService.queryBrandByCid(cid);
-       if (CollectionUtils.isEmpty(brands)){
+    public ResponseEntity<List<Brand>> queryBrandByCid(@PathVariable("cid") Long cid) {
+        List<Brand> brands = this.brandService.queryBrandByCid(cid);
+        if (CollectionUtils.isEmpty(brands)) {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(brands);
     }
 
+    /**
+     * 根据id获取品牌
+     * @param id
+     * @return
+     */
+    @GetMapping("{id}")
+    public ResponseEntity<Brand> queryBrandById(@PathVariable("id") Long id) {
+        Brand brand = this.brandService.queryBrandById(id);
+        if (brand == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(brand);
+    }
 }

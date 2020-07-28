@@ -50,7 +50,7 @@ public class SpecificationController {
      * @return
      */
     @GetMapping("params")
-    public ResponseEntity<List<SpecParam>> queryParamsByGid(
+    public ResponseEntity<List<SpecParam>> queryParams(
             @RequestParam(value = "gid" ,required = false) Long gid,
             @RequestParam(value = "cid",required = false) Long cid,
             @RequestParam(value = "generic",required = false) Boolean generic,

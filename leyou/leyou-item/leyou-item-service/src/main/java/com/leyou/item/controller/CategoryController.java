@@ -3,12 +3,10 @@ package com.leyou.item.controller;
 import com.leyou.item.pojo.Category;
 import com.leyou.item.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -48,5 +46,21 @@ public class CategoryController {
         }
         //200；查询成功
         return ResponseEntity.ok(categories);
+    }
+
+    /**
+     * 根据多个id查询对应的分类名称
+     * @param ids
+     * @return
+     */
+    @GetMapping
+    public ResponseEntity<List<String>> queryNamesByIds(@RequestParam("ids")List<Long> ids){
+        List<String> names = this.categoryService.queryNamesByIds(ids);
+        if (CollectionUtils.isEmpty(names)) {
+            //404；资源服务器未找到
+            return ResponseEntity.notFound().build();
+        }
+        //200；查询成功
+        return ResponseEntity.ok(names);
     }
 }
